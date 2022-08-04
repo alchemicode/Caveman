@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 
 import yaml
-
-from src.log import log
 from src.main import bot
 
 
@@ -14,5 +12,4 @@ with open("conf.yml", 'r') as stream:
 
 
 if __name__ == "__main__":
-    log()
     bot.run(config['token'])

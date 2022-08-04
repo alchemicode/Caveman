@@ -1,20 +1,7 @@
-#!/usr/bin/env python3
-
-import yaml
-
-from log import log
-
 import disnake
 from disnake.ext import commands
 
-with open("conf.yml", 'r') as stream:
-    try:
-        config = yaml.safe_load(stream)
-    except yaml.YAMLError as err:
-        print(err)
-
 description = """Caveman go brrrr"""
-token = config['token']
 
 intents = disnake.Intents.default()
 intents.members = True
@@ -68,8 +55,3 @@ async def ping(ctx):
         print("Confirmed")
     else:
         print("Cancelled")
-
-
-if __name__ == '__main__':
-    log()
-    bot.run(token)

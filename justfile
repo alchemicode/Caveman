@@ -1,6 +1,6 @@
-# Run normally using current Python environment
+# Run using current Python environment
 run:
-    ./src/main.py
+    ./run.py
 
 # Run using the env defined in `flake.nix`
 nix:

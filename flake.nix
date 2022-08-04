@@ -26,16 +26,9 @@
           requirements = builtins.readFile ./requirements.txt;
         };
 
-        packages.default = packages.caveman;
-
-        apps.caveman = utils.lib.mkApp {
-          drv = packages.caveman;
-          exePath = ./src/main.py;
+        devShells.default = pkgs.mkShell {
+          buildInputs = [packages.caveman pkgs.just];
         };
-
-        apps.default = apps.caveman;
-
-        devShells.default = packages.caveman;
 
         formatter = pkgs.alejandra;
       });

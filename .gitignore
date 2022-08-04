@@ -128,5 +128,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# Our stuff
 .idea/
 .direnv/
+conf.yml

@@ -1,13 +1,20 @@
 #!/usr/bin/env python3
-import os
+
+import yaml
 
 from log import log
 
 import disnake
 from disnake.ext import commands
 
+with open("conf.yml", 'r') as stream:
+    try:
+        config = yaml.safe_load(stream)
+    except yaml.YAMLError as err:
+        print(err)
+
 description = """Caveman go brrrr"""
-token = os.getenv('CAVEMAN_TOKEN')
+token = config['token']
 
 intents = disnake.Intents.default()
 intents.members = True

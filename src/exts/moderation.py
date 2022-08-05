@@ -50,7 +50,7 @@ class Notes(disnake.ui.View):
             note.set_footer(text=f"Note {i + 1} of {len(self.notes)}")
 
     @disnake.ui.button(emoji="⏮️", style=disnake.ButtonStyle.blurple)
-    async def first_page(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+    async def first_page(self, interaction: disnake.MessageInteraction):
         self.notes_count = 0
         embed = self.notes[self.notes_count]
         embed.set_footer(text=f"Note 1 of {len(self.notes)}")
@@ -62,7 +62,7 @@ class Notes(disnake.ui.View):
         await interaction.response.edit_message(embed=embed, view=self)
 
     @disnake.ui.button(emoji="◀", style=disnake.ButtonStyle.primary)
-    async def prev_page(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+    async def prev_page(self, interaction: disnake.MessageInteraction):
         self.notes_count -= 1
         embed = self.notes[self.notes_count]
 
@@ -74,7 +74,7 @@ class Notes(disnake.ui.View):
         await interaction.response.edit_message(embed=embed, view=self)
 
     @disnake.ui.button(emoji="▶", style=disnake.ButtonStyle.primary)
-    async def next_page(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+    async def next_page(self, interaction: disnake.MessageInteraction):
         self.notes_count += 1
         embed = self.notes[self.notes_count]
 
@@ -86,7 +86,7 @@ class Notes(disnake.ui.View):
         await interaction.response.edit_message(embed=embed, view=self)
 
     @disnake.ui.button(emoji="⏭️", style=disnake.ButtonStyle.primary)
-    async def last_page(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+    async def last_page(self, interaction: disnake.MessageInteraction):
         self.notes_count = len(self.notes) - 1
         embed = self.notes[self.notes_count]
 
@@ -122,7 +122,7 @@ class Actions(disnake.ui.View):
         self.user = user
 
     @disnake.ui.button(label="🗒️ Notes", style=disnake.ButtonStyle.primary)
-    async def note(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+    async def note(self, interaction: disnake.MessageInteraction):
         notes = [
             Note(note="Killed my dog", date=datetime.now(), author=self.ctx.author.id, user=self.user.id),
             Note(note="Killed my cat", date=datetime.now(), author=self.ctx.author.id, user=self.user.id),
@@ -135,7 +135,7 @@ class Actions(disnake.ui.View):
         await interaction.response.send_message(embed=embeds[0], view=Notes(embeds), ephemeral=True)
 
     @disnake.ui.button(label="⚠️ Warn", style=disnake.ButtonStyle.primary)
-    async def warn(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+    async def warn(self, interaction: disnake.MessageInteraction):
         ctx = self.ctx
         user = self.user
 
@@ -160,10 +160,10 @@ class Actions(disnake.ui.View):
         for custom_id, value in modal_inter.text_values.items():
             embed.add_field(name=custom_id.capitalize(), value=(value or "No reason provided"), inline=False)
 
-        await modal_inter.response.send_message(embed=embed)
+        await modal_inter.response.send_message(embed=embed, ephemeral=True)
 
     @disnake.ui.button(label="👞 Kick", style=disnake.ButtonStyle.primary)
-    async def kick(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+    async def kick(self, interaction: disnake.MessageInteraction):
         ctx = self.ctx
         user = self.user
 
@@ -188,10 +188,10 @@ class Actions(disnake.ui.View):
         for custom_id, value in modal_inter.text_values.items():
             embed.add_field(name=custom_id.capitalize(), value=(value or "No reason provided"), inline=False)
 
-        await modal_inter.response.send_message(embed=embed)
+        await modal_inter.response.send_message(embed=embed, ephemeral=True)
 
     @disnake.ui.button(label="🔨 Ban", style=disnake.ButtonStyle.primary)
-    async def ban(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+    async def ban(self, interaction: disnake.MessageInteraction):
         ctx = self.ctx
         user = self.user
 
@@ -216,7 +216,7 @@ class Actions(disnake.ui.View):
         for custom_id, value in modal_inter.text_values.items():
             embed.add_field(name=custom_id.capitalize(), value=(value or "No reason provided"), inline=False)
 
-        await modal_inter.response.send_message(embed=embed)
+        await modal_inter.response.send_message(embed=embed, ephemeral=True)
 
 
 @commands.user_command(name="Info")
@@ -267,8 +267,8 @@ async def info(
     await view.wait()
 
 
-def setup(bot):
+def setup(_bot):
     print('Loading Moderation Ext.')
-    bot.add_user_command(info_context)
-    bot.add_slash_command(info)
+    _bot.add_user_command(info_context)
+    _bot.add_slash_command(info)
     print('Moderation Ext. Loaded')

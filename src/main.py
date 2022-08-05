@@ -1,5 +1,11 @@
-import disnake
+import disnake, yaml
 from disnake.ext import commands
+
+with open("conf.yml", 'r') as stream:
+    try:
+        config = yaml.safe_load(stream)
+    except yaml.YAMLError as err:
+        print(err)
 
 description = """Caveman go brrrr"""
 

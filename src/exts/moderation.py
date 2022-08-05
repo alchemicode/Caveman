@@ -28,7 +28,7 @@ def parse_notes(notes: List[Note]) -> List[disnake.Embed]:
         )
         embed.add_field(
             name="Time Added",
-            value=datetime.now(),
+            value=note.date,
             inline=False
         )
         embed.set_thumbnail(url=bot.get_user(note.user).display_avatar.url)

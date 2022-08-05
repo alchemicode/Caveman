@@ -1,27 +1,29 @@
+from typing import List
+
 from peewee import *
 
-db = SqliteDatabase('caveman.db')
-
-class Server(Model):
-    id = IntegerField()
-    users = List[User]
-
-class User(Model):
-    id = IntegerField()
-    warns = List[Warn]
-    notes = List[Note]
-
-class Warn(Model):
-    reason = TextField()
-    author = IntegerField()
 
 class Note(Model):
     note = TextField()
     date = DateField()
     author = IntegerField()
 
+
+class Warn(Model):
+    reason = TextField()
+    author = IntegerField()
+
+
+class User(Model):
+    id = IntegerField()
+    warns = List[Warn]
+    notes = List[Note]
+
+
+class Server(Model):
+    id = IntegerField()
+    mod_role = IntegerField()
+    users = List[User]
+
     class Meta:
-        database = db
-
-db.connect()
-
+        database = SqliteDatabase('caveman.db')

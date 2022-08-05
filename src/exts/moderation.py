@@ -1,12 +1,13 @@
 import asyncio
-from typing import List
 from datetime import datetime
+from typing import List
 
 import disnake
 from disnake.ext import commands
 
-from ..main import bot
 from ..db import Note
+from ..main import bot
+
 
 def parse_notes(notes: List[Note]) -> List[disnake.Embed]:
     embeds = []
@@ -89,10 +90,10 @@ class Notes(disnake.ui.View):
         self.notes_count = len(self.notes) - 1
         embed = self.notes[self.notes_count]
 
-        self.first_page_disabled = False
-        self.prev_page_disabled = False
-        self.next_page_disabled = True
-        self.last_page_disabled = True
+        self.first_page.disabled = False
+        self.prev_page.disabled = False
+        self.next_page.disabled = True
+        self.last_page.disabled = True
         await interaction.response.edit_message(embed=embed, view=self)
 
 
@@ -231,8 +232,8 @@ async def info_context(
     description="Get simple user info",
 )
 async def info(
-    ctx,
-    user: disnake.User
+        ctx,
+        user: disnake.User
 ):
     embed = disnake.Embed(
         title=f"**{user.name}#{user.discriminator}**",

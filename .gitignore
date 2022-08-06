@@ -133,3 +133,4 @@ dmypy.json
 .direnv/
 conf.yml
 caveman.db
+data/*.pickle

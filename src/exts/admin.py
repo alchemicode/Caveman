@@ -4,7 +4,7 @@ from disnake.ext import commands
 
 @disnake.ext.commands.is_owner()
 @commands.slash_command(
-    name="botinfo",
+    name="bot-info",
     description="Get info about the bot",
 )
 async def bot_info(ctx):

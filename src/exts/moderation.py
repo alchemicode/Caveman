@@ -291,7 +291,7 @@ async def note(
     server = classes.server(ctx.guild.id)
 
     if server.get_user(user.id) is None:
-        user_ = classes.User(id=user.id)
+        user_ = classes.User(id_=user.id)
         server.add_user(user_)
 
     server.get_user(user.id).add_note(note_)

@@ -16,8 +16,8 @@ class Warn:
     user = int
     date = datetime
 
-    def __init__(self, reason, author, user, date=datetime.now(), id=random.getrandbits(63)):
-        self.id = id
+    def __init__(self, reason, author, user, date=datetime.now(), id_=random.getrandbits(63)):
+        self.id = id_
         self.reason = reason
         self.author = author
         self.user = user
@@ -31,8 +31,8 @@ class Note:
     user = int
     date = datetime
 
-    def __init__(self, content, author, user, date=datetime.now(), id=random.getrandbits(63)):
-        self.id = id
+    def __init__(self, content, author, user, date=datetime.now(), id_=random.getrandbits(63)):
+        self.id = id_
         self.content = content
         self.author = author
         self.user = user
@@ -73,12 +73,12 @@ class User:
     warns = List[Warn]
     notes = List[Note]
 
-    def __init__(self, id, warns=None, notes=None):
+    def __init__(self, id_, warns=None, notes=None):
         if notes is None:
             notes = []
         if warns is None:
             warns = []
-        self.id = id
+        self.id = id_
         self.warns = warns
         self.notes = notes
 
@@ -101,10 +101,10 @@ class Server:
     options = ServerOptions
     users = List[User]
 
-    def __init__(self, id, options=ServerOptions(), users=None):
+    def __init__(self, id_, options=ServerOptions(), users=None):
         if users is None:
             users = []
-        self.id = id
+        self.id = id_
         self.options = options
         self.users = users
 
@@ -127,10 +127,10 @@ class Server:
             pickle.dump(self, f)
 
 
-def server(id: int):
-    if not os.path.exists(f'data/{id}.pickle'):
-        server_ = Server(id)
+def server(id_: int):
+    if not os.path.exists(f'data/{id_}.pickle'):
+        server_ = Server(id_)
         server_.initialise()
 
-    with open(f'data/{id}.pickle', 'rb') as f:
+    with open(f'data/{id_}.pickle', 'rb') as f:
         return pickle.load(f)

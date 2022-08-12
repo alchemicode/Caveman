@@ -9,6 +9,7 @@ with open("conf.yml", 'r') as stream:
         print(err)
 
 intents = disnake.Intents().default()
+# noinspection PyDunderSlots,PyUnresolvedReferences
 intents.members = True
 
 bot = commands.InteractionBot(
